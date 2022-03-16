@@ -9,6 +9,7 @@ contract UniswapV2Factory is IUniswapV2Factory {
     address public override feeTo;
     address public override feeToSetter;
     address public override migrator;
+    uint256 public override protocolFeePercentage = 8000; // a percentage out of 10,000  ; Percent of total fee
 
     mapping(address => mapping(address => address)) public override getPair;
     address[] public override allPairs;
@@ -59,4 +60,9 @@ contract UniswapV2Factory is IUniswapV2Factory {
         feeToSetter = _feeToSetter;
     }
 
+    function setProtocolFeePercentage(uint256 _protocolFeePercentage) external override {
+        protocolFeePercentage = _protocolFeePercentage;
+        require(msg.sender == feeToSetter, 'UniswapV2: FORBIDDEN');
+        require(_protocolFeePercentage > 0 && _protocolFeePercentage <= 10000, 'UniswapV2: FORBIDDEN_FEE');
+    }
 }
