@@ -100,6 +100,8 @@ def add_liquidity(tokens_to_add=10**10, ETH_to_add=10**10):
     # setFeeTo
     tx = router.addLiquidity(token.address, weth.address, tokens_to_add, ETH_to_add,
                              1, 1, accounts[0], current_block + big_num, {'from': accounts[0]})
+    print(f'added liquidity.')
+    print(f'tx: {tx}')
 
 
 def swap_tokens(amount_to_swap=10**6, reverse = False):
